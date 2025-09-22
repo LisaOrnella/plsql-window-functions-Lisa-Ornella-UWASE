@@ -1,4 +1,4 @@
-clothng & accessories store
+clothing & accessories store
 
 Company type: Clothing & accessories store
 Department: Sales & Marketing
