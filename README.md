@@ -24,7 +24,7 @@ Suggest marketing actions to improve sales.
 
 Goal 1: Identify the 5 products with the highest sales in each district for every quarter
 
-Goal 2: Calculate the total sales amount for each month and keep a cumulative running total 
+Goal 2: Calculate the total sales amount for each month and keep a cumulative running total
 
 Goal 3: Measure the percentage change in total sales from the previous month to the current month.
 
