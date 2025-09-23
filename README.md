@@ -70,4 +70,53 @@ CREATE TABLE transactions (
 
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/ER%20DIAGRAM.png?raw=true)
 
+## RANKING
+
+**ROW_NUMBER()**
+```sql
+-- 1. ROW_NUMBER(): Sequential numbering of transactions per customer
+SELECT 
+    c.name AS customer_name,
+    t.sale_date,
+    t.amount,
+    ROW_NUMBER() OVER (PARTITION BY t.customer_id ORDER BY t.sale_date) AS transaction_number
+FROM transactions t
+JOIN customers c ON t.customer_id = c.customer_id
+ORDER BY c.name, t.sale_date;
+```
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/row%20number.png?raw=true)
+**This shows the order of each customer's purchases. I can see who shops most often. This helps me find our regular customers.**
+
+**RANK()**
+```sql
+-- 2. RANK(): Top products by sales in each region
+SELECT 
+    c.region,
+    p.name AS product_name,
+    SUM(t.amount) AS total_sales,
+    RANK() OVER (PARTITION BY c.region ORDER BY SUM(t.amount) DESC) AS sales_rank
+FROM transactions t
+JOIN customers c ON t.customer_id = c.customer_id
+JOIN products p ON t.product_id = p.product_id
+GROUP BY c.region, p.name
+ORDER BY c.region, sales_rank;
+```
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/1-rank().png?raw=true)
+**Some products sell better in different places. Jeans are popular in the city, but dresses sell more in other areas. We should stock what each area likes.**
+
+**DENSE_RANK()**
+```sql
+-- 3. DENSE_RANK(): Customer spending ranking
+SELECT 
+    c.name AS customer_name,
+    SUM(t.amount) AS total_spent,
+    DENSE_RANK() OVER (ORDER BY SUM(t.amount) DESC) AS spending_rank
+FROM transactions t
+JOIN customers c ON t.customer_id = c.customer_id
+GROUP BY c.name
+ORDER BY spending_rank;
+```
+![image alt](<img width="1015" height="525" alt="image" src="https://github.com/user-attachments/assets/6843991a-531e-4dba-95e2-d2864d050f01" />)
+
+
 
