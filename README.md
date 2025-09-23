@@ -31,3 +31,6 @@ Goal 3: Measure the percentage change in total sales from the previous month to 
 Goal 4: Divide all customers into 4 groups based on total spending in the past 12 months (top 25%, next 25%, etc)
 
 Goal 5: Compute the average sales for each 3-month period to observe trends over time.
+
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/LEAD.png?raw=true)
+
