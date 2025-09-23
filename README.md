@@ -116,7 +116,148 @@ JOIN customers c ON t.customer_id = c.customer_id
 GROUP BY c.name
 ORDER BY spending_rank;
 ```
-![image alt](<img width="1015" height="525" alt="image" src="https://github.com/user-attachments/assets/6843991a-531e-4dba-95e2-d2864d050f01" />)
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/1-dense%20rank().png?raw=true)
+**This lists customers from biggest spenders to smallest. The top few customers bring us most of our money.
+We should take good care of them**
+
+**PERCENT_RANK()**
+```sql
+-- 4. PERCENT_RANK(): Product performance percentile
+SELECT 
+    p.name AS product_name,
+    SUM(t.amount) AS total_revenue,
+    ROUND(PERCENT_RANK() OVER (ORDER BY SUM(t.amount)) * 100, 2) AS percentile_rank
+FROM transactions t
+JOIN products p ON t.product_id = p.product_id
+GROUP BY p.name
+ORDER BY total_revenue DESC;
+```
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/1-percent%20rank().png?raw=true)
+
+**Some products make much more money than others. The handbag sells very well compared to other items. We should focus on what sells best.**
+
+## AGGREGATE
+**SUM() OVER()**
+```sql
+-- 1. SUM() OVER(): Running total of monthly sales (FIXED)
+SELECT 
+    DATE_FORMAT(sale_date, '%Y-%m') AS sale_month,
+    SUM(amount) AS monthly_sales,
+    SUM(SUM(amount)) OVER (ORDER BY DATE_FORMAT(sale_date, '%Y-%m')) AS running_total
+FROM transactions
+GROUP BY DATE_FORMAT(sale_date, '%Y-%m')
+ORDER BY sale_month;
+```
+![image alt](
+
+```sql
+-- 2. AVG() OVER(): 3-month moving average (FIXED for MySQL)
+SELECT 
+    DATE_FORMAT(sale_date, '%Y-%m') AS sale_month,
+    SUM(amount) AS monthly_sales,
+    ROUND(AVG(SUM(amount)) OVER (
+        ORDER BY DATE_FORMAT(sale_date, '%Y-%m')
+        ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+    ), 2) AS moving_avg_3month
+FROM transactions
+GROUP BY DATE_FORMAT(sale_date, '%Y-%m')
+ORDER BY sale_month;
+```
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/avg()%20over().png?raw=true)
+
+**
+
+```sql
+-- 3. ROWS vs RANGE comparison (FIXED)
+SELECT 
+    sale_date,
+    amount,
+    SUM(amount) OVER (ORDER BY sale_date ROWS UNBOUNDED PRECEDING) AS rows_running_total,
+    SUM(amount) OVER (ORDER BY sale_date) AS range_running_total -- MySQL default is RANGE
+FROM transactions
+ORDER BY sale_date;
+```
+![image alt](
+```sql
+-- 4. MIN/MAX with window frames
+SELECT 
+    p.name AS product_name,
+    t.sale_date,
+    t.amount,
+    MIN(t.amount) OVER (PARTITION BY p.product_id) AS min_sale_amount,
+    MAX(t.amount) OVER (PARTITION BY p.product_id) AS max_sale_amount
+FROM transactions t
+JOIN products p ON t.product_id = p.product_id
+ORDER BY p.name, t.sale_date;
+```
+![image alt](
+
+```sql
+
+-- 1. LAG(): Month-over-month sales comparison (FIXED)
+SELECT 
+    DATE_FORMAT(sale_date, '%Y-%m') AS sale_month,
+    SUM(amount) AS current_month_sales,
+    LAG(SUM(amount), 1) OVER (ORDER BY DATE_FORMAT(sale_date, '%Y-%m')) AS previous_month_sales,
+    ROUND(
+        ((SUM(amount) - LAG(SUM(amount), 1) OVER (ORDER BY DATE_FORMAT(sale_date, '%Y-%m'))) / 
+        LAG(SUM(amount), 1) OVER (ORDER BY DATE_FORMAT(sale_date, '%Y-%m'))) * 100, 2
+    ) AS growth_percentage
+FROM transactions
+GROUP BY DATE_FORMAT(sale_date, '%Y-%m')
+ORDER BY sale_month;
+```
+```sql
+-- 2. LEAD(): Next month sales forecast (FIXED)
+SELECT 
+    DATE_FORMAT(sale_date, '%Y-%m') AS sale_month,
+    SUM(amount) AS current_sales,
+    LEAD(SUM(amount), 1) OVER (ORDER BY DATE_FORMAT(sale_date, '%Y-%m')) AS next_month_forecast,
+    ROUND(
+        ((LEAD(SUM(amount), 1) OVER (ORDER BY DATE_FORMAT(sale_date, '%Y-%m')) - SUM(amount)) / 
+        SUM(amount)) * 100, 2
+    ) AS expected_growth
+FROM transactions
+GROUP BY DATE_FORMAT(sale_
+```
+
+# 📊 Results Analysis
+
+### 🔹 Descriptive (What happened?)
+- Jeans and shoes sold the most.  
+- Sales went up in December because of holidays.  
+- A few customers spent more money than most others.  
+
+### 🔹 Diagnostic (Why did it happen?)
+- Holiday discounts made December sales higher.  
+- Kigali had more sales since it has more people.  
+- Big customers bought often and spent a lot more.  
+
+### 🔹 Prescriptive (What next?)
+- Stock more jeans and shoes in Kigali and Musanze.  
+- Give special offers or loyalty rewards to big customers.  
+- Keep holiday promotions each December to boost sales.  
+
+---
+
+#  References
+1. Oracle PL/SQL Documentation  
+2. MySQL Window Functions Guide  
+3. youtube Tutorials on Window Functions  
+4. Chatgpt for personal assistance 
+5. GeeksforGeeks SQL Analytical Functions  
+6. Github  
+7. Lecturer's notes  
+8. DBMS notes  
+9. youtube tutorials  
+10. TutorialsPoint
+
+---
+
+# Integrity Statement
+All sources were properly cited. Implementations and analysis represent **original work**.  
+No AI-generated content was copied without attribution or adaptation.
+
 
 
 
