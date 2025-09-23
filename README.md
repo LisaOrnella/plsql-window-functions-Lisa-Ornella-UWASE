@@ -1,4 +1,4 @@
-##clothing & accessories store
+## clothing & accessories store
 
 **Company type**: Clothing & accessories store
 
@@ -36,28 +36,11 @@ Goal 5: Compute the average sales for each 3-month period to observe trends over
 
 ### Tables Structure
 
-**customers table** - Stores customer information
-- `customer_id` (INT, PRIMARY KEY) - Unique ID for each customer
-- `name` (VARCHAR) - Customer's full name
-- `region` (VARCHAR) - District where customer is located (Kigali, Musanze, Huye)
-- `signup_date` (DATE) - When customer joined
+```sql
 
-**products table** - Stores product catalog
-- `product_id` (INT, PRIMARY KEY) - Unique ID for each product
-- `name` (VARCHAR) - Product name (Denim Jeans, Summer Dress, etc.)
-- `category` (VARCHAR) - Product category (Clothing, Accessories, Footwear)
-- `price` (DECIMAL) - Product price
-
-**transactions table** - Stores sales records
-- `transaction_id` (INT, PRIMARY KEY) - Unique ID for each sale
-- `customer_id` (INT, FOREIGN KEY) - Links to customers table
-- `product_id` (INT, FOREIGN KEY) - Links to products table
-- `sale_date` (DATE) - Date of sale
-- `quantity` (INT) - Number of items sold
-- `amount` (DECIMAL) - Total sale amount
-- `store_location` (VARCHAR) - Where sale happened
 
 ### ER Diagram
 
-![image alt]()
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/ER%20DIAGRAM.png?raw=true)
+
 
