@@ -65,6 +65,14 @@ CREATE TABLE transactions (
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 ```
+**Customer Table**
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/customer.png?raw=true)
+
+**Products Table**
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/products.png?raw=true)
+
+**Transaction Table**
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/transaction%20table.png?raw=true)
 
 ### ER Diagram
 
