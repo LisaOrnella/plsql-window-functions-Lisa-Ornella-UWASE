@@ -159,7 +159,7 @@ ORDER BY sale_month;
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/sum%20over.png?raw=true)
 **Our sales keep growing each month.
 The total money keeps getting bigger This means our business is doing well.**
-
+**AVG() OVER()**
 ```sql
 -- 2. AVG() OVER(): 3-month moving average (FIXED for MySQL)
 SELECT 
@@ -176,7 +176,7 @@ ORDER BY sale_month;
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/avg()%20over().png?raw=true)
 
 **This smooths out the ups and downs in sales. It shows our general growth pattern. It helps me predict future sales.**
-
+**ROWS vs RANGE**
 ```sql
 -- 3. ROWS vs RANGE comparison (FIXED)
 SELECT 
@@ -189,6 +189,8 @@ ORDER BY sale_date;
 ```
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/2%20row%20vs%20range.png?raw=true)
 **Both ways of adding up sales give the same result here. This is because each day has different sales numbers. It's good to know they match.**
+
+**MIN/MAX**
 ```sql
 -- 4. MIN/MAX with window frames
 SELECT 
@@ -204,6 +206,8 @@ ORDER BY p.name, t.sale_date;
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/2%20min%20max.png?raw=true)
 **Most products sell for about the same price each time. There aren't big price changes. This means our pricing is steady.**
 
+## NAVIGATION
+**LAG()**
 ```sql
 
 -- 1. LAG(): Month-over-month sales comparison (FIXED)
@@ -221,6 +225,8 @@ ORDER BY sale_month;
 ```
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/lag.png?raw=true)
 **Some months sales go up, some months they go down. February was better than January. I need to understand why sales change each month.**
+
+**LEAD()**
 ```sql
 -- 2. LEAD(): Next month sales forecast (FIXED)
 SELECT 
@@ -239,6 +245,8 @@ GROUP BY DATE_FORMAT(sale_
 month. It thinks sales will keep growing.
 This helps me plan ahead.**
 
+##DISTRIBUTION
+**NTILE(4)**
 ```sql
 SELECT
     c.name AS customer_name,
@@ -268,6 +276,8 @@ ORDER BY
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/5%20NTILE.png?raw=true)
 
 **I put customers into four groups by how much they spend. The top group gives us most of our money. We should treat them specially.**
+
+**CUME_DIST()**
 ```sql
 --cumulative distribution of product sales
 SELECT
