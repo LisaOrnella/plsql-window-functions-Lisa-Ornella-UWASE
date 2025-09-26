@@ -245,7 +245,7 @@ GROUP BY DATE_FORMAT(sale_
 month. It thinks sales will keep growing.
 This helps me plan ahead.**
 
-##DISTRIBUTION
+## DISTRIBUTION
 **NTILE(4)**
 ```sql
 SELECT
