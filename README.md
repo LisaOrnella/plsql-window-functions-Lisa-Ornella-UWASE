@@ -2,13 +2,15 @@
 
 **Course:** Database Development with PL/SQL
 
+**Tuesday Group-B**
+
 **ID:** 28753
 
 **Names:** UWASE Lisa Ornella
 
 **Instructor:** Eric Maniraguha
 
-**Date:** 8 September 2025
+**Date:** 28th September 2025
 
 
 ## BUSINESS PROBLEM
