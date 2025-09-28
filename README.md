@@ -54,6 +54,7 @@ Goal 5: Compute the average sales for each 3-month period to observe trends over
 ### Tables Structure
 
 **Table Names**
+
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/all%20tables.png?raw=true)
 
 **Customer Table**
