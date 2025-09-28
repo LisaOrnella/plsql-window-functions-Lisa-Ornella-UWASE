@@ -1,10 +1,14 @@
-#Window Function Assignment -
+# Window Function Assignment -
 Clothing & Accessories Store Analysis
 
 **Course:** Database Development with PL/SQL
+
 **ID:** 28753
+
 **Names:** UWASE Lisa Ornella
+
 **Instructor:** Eric Maniraguha
+
 **Date:** September 2025
 
 
@@ -49,7 +53,8 @@ Goal 5: Compute the average sales for each 3-month period to observe trends over
 ## Database Schema
 
 ### Tables Structure
-
+**Table Names**
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/all%20tables.png?raw=true)
 **Customer Table**
 ```sql
 -- 1. Customers Table
@@ -95,6 +100,15 @@ CREATE TABLE transactions (
 
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/ER%20DIAGRAM.png?raw=true)
 
+**Table Counts**
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/count.png?raw=true)
+
+**The structure of customer table**
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/desc%20customers.png?raw=true)
+
+**The Structure of Transaction table**
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/desc%20transactions.png?raw=true)
+
 ## Window Functions Implementation
 
 ### 1. RANKING Functions
@@ -114,7 +128,7 @@ ORDER BY c.name, t.sale_date;
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/row%20number.png?raw=true)
 **This shows the order of each customer's purchases. I can see who shops most often. This helps me find our regular customers.**
 
-**RANK()**
+### Query 2: RANK()-Top Products by Region
 ```sql
 -- 2. RANK(): Top products by sales in each region
 SELECT 
@@ -131,7 +145,7 @@ ORDER BY c.region, sales_rank;
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/1-rank().png?raw=true)
 **Some products sell better in different places. Jeans are popular in the city, but dresses sell more in other areas. We should stock what each area likes.**
 
-**DENSE_RANK()**
+### Query 3: DENSE_RANK()-Customer Spending
 ```sql
 -- 3. DENSE_RANK(): Customer spending ranking
 SELECT 
@@ -163,8 +177,9 @@ ORDER BY total_revenue DESC;
 
 **Some products make much more money than others. The handbag sells very well compared to other items. We should focus on what sells best.**
 
-## AGGREGATE
-**SUM() OVER()**
+### AGGREGATE Functions
+
+### Query 4: SUM() OVER()- Running Monthly Total
 ```sql
 -- 1. SUM() OVER(): Running total of monthly sales (FIXED)
 SELECT 
@@ -178,7 +193,8 @@ ORDER BY sale_month;
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/sum%20over.png?raw=true)
 **Our sales keep growing each month.
 The total money keeps getting bigger This means our business is doing well.**
-**AVG() OVER()**
+
+### Query 5: AVG() OVER()-3-Month moving Average
 ```sql
 -- 2. AVG() OVER(): 3-month moving average (FIXED for MySQL)
 SELECT 
@@ -195,6 +211,7 @@ ORDER BY sale_month;
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/avg()%20over().png?raw=true)
 
 **This smooths out the ups and downs in sales. It shows our general growth pattern. It helps me predict future sales.**
+
 **ROWS vs RANGE**
 ```sql
 -- 3. ROWS vs RANGE comparison (FIXED)
@@ -225,8 +242,9 @@ ORDER BY p.name, t.sale_date;
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/2%20min%20max.png?raw=true)
 **Most products sell for about the same price each time. There aren't big price changes. This means our pricing is steady.**
 
-## NAVIGATION
-**LAG()**
+### NAVIGATION Functions
+
+### Query 6: LAG()-Month-over-Month Growth
 ```sql
 
 -- 1. LAG(): Month-over-month sales comparison (FIXED)
@@ -245,7 +263,7 @@ ORDER BY sale_month;
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/lag.png?raw=true)
 **Some months sales go up, some months they go down. February was better than January. I need to understand why sales change each month.**
 
-**LEAD()**
+### Query 7: LEAD()-Sales Forecasting
 ```sql
 -- 2. LEAD(): Next month sales forecast (FIXED)
 SELECT 
@@ -257,15 +275,15 @@ SELECT
         SUM(amount)) * 100, 2
     ) AS expected_growth
 FROM transactions
-GROUP BY DATE_FORMAT(sale_
+GROUP BY DATE_FORMAT(sale_date, '%Y-%m') ORDER BY sale_month;
 ```
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/LEAD.png?raw=true)
 **This guesses what might happen next
 month. It thinks sales will keep growing.
 This helps me plan ahead.**
 
-## DISTRIBUTION
-**NTILE(4)**
+### DISTRIBUTION Functions
+### Query 8: NTILE(4)- Customer Quartiles
 ```sql
 SELECT
     c.name AS customer_name,
@@ -296,7 +314,7 @@ ORDER BY
 
 **I put customers into four groups by how much they spend. The top group gives us most of our money. We should treat them specially.**
 
-**CUME_DIST()**
+### Query 9: CUME_DIST()- Product Cumulative Distribution
 ```sql
 --cumulative distribution of product sales
 SELECT
@@ -334,6 +352,12 @@ ORDER BY
 
 ---
 
+## SQL Files
+- `creation.sql` - Database setup and sample data
+- `ranking.sql` - Ranking functions implementation  
+- `aggregate_functions.sql` - Aggregate functions with window frames
+- `navigation_functions.sql` - Navigation functions for trend analysis
+- `Distribution Functions.sql` - Distribution functions for segmentation
 #  References
 1. Oracle PL/SQL Documentation  
 2. MySQL Window Functions Guide  
