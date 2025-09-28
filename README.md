@@ -103,12 +103,15 @@ CREATE TABLE transactions (
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/ER%20DIAGRAM.png?raw=true)
 
 **Table Counts**
+
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/count.png?raw=true)
 
 **The structure of customer table**
+
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/desc%20customers.png?raw=true)
 
 **The Structure of Transaction table**
+
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/desc%20transactions.png?raw=true)
 
 ## Window Functions Implementation
