@@ -1,5 +1,4 @@
-# Window Function Assignment -
-Clothing & Accessories Store Analysis
+# Window Function Assignment -Clothing & Accessories Store Analysis
 
 **Course:** Database Development with PL/SQL
 
