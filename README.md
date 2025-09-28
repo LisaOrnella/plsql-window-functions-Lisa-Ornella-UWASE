@@ -8,7 +8,7 @@
 
 **Instructor:** Eric Maniraguha
 
-**Date:** September 2025
+**Date:** 8 September 2025
 
 
 ## BUSINESS PROBLEM
