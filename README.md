@@ -1,10 +1,24 @@
-## clothing & accessories store
+#Window Function Assignment -
+Clothing & Accessories Store Analysis
+
+**Course:** Database Development with PL/SQL
+**ID:** 28753
+**Names:** UWASE Lisa Ornella
+**Instructor:** Eric Maniraguha
+**Date:** September 2025
+
+
+## BUSINESS PROBLEM
+
+### Business Context
 
 **Company type**: Clothing & accessories store
 
 **Department**: Sales & Marketing
 
 **Industry**:Online and physical stores
+
+**Location:** Kigali,Musanze, Huye
 
 **Data Challenge**:
 The company has multiple stores in different districts, but it’s hard to see which products sell the most, which customers buy the most, 
@@ -22,19 +36,21 @@ and how sales change month to month. Management wants to use data to make market
 
 **5 measurable goals:**
 
-Goal 1: Identify the 5 products with the highest sales in each district for every quarter
+Goal 1: Identify the 5 products with the highest sales in each district for every quarter--using RANK()
 
-Goal 2: Calculate the total sales amount for each month and keep a cumulative running total
+Goal 2: Calculate the total sales amount for each month and keep a cumulative running total--using SUM() OVER()
 
-Goal 3: Measure the percentage change in total sales from the previous month to the current month.
+Goal 3: Measure the percentage change in total sales from the previous month to the current month.--using LAG()/LEAD()
 
-Goal 4: Divide all customers into 4 groups based on total spending in the past 12 months (top 25%, next 25%, etc)
+Goal 4: Divide all customers into 4 groups based on total spending in the past 12 months (top 25%, next 25%, etc)--using NTILE(4)
 
-Goal 5: Compute the average sales for each 3-month period to observe trends over time.
+Goal 5: Compute the average sales for each 3-month period to observe trends over time.--using AVG() OVER()
 
 ## Database Schema
 
 ### Tables Structure
+
+**Customer Table**
 ```sql
 -- 1. Customers Table
 CREATE TABLE customers (
@@ -43,7 +59,11 @@ CREATE TABLE customers (
     region VARCHAR(50),
     signup_date DATE
 );
+```
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/customer.png?raw=true)
 
+**Products Table**
+```sql
 -- 2. Products Table
 CREATE TABLE products (
     product_id INT PRIMARY KEY,
@@ -51,7 +71,11 @@ CREATE TABLE products (
     category VARCHAR(50),
     price DECIMAL(10,2)
 );
+```
+![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/products.png?raw=true)
 
+**Transaction Table**
+```sql
 -- 3. Transactions Table
 CREATE TABLE transactions (
     transaction_id INT PRIMARY KEY,
@@ -65,22 +89,17 @@ CREATE TABLE transactions (
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 ```
-**Customer Table**
-![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/customer.png?raw=true)
-
-**Products Table**
-![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/products.png?raw=true)
-
-**Transaction Table**
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/transaction%20table.png?raw=true)
 
 ### ER Diagram
 
 ![image alt](https://github.com/LisaOrnella/plsql-window-functions-Lisa-Ornella-UWASE/blob/main/ER%20DIAGRAM.png?raw=true)
 
-## RANKING
+## Window Functions Implementation
 
-**ROW_NUMBER()**
+### 1. RANKING Functions
+
+### Query 1: ROW_NUMBER() - Customer Transaction Sequence
 ```sql
 -- 1. ROW_NUMBER(): Sequential numbering of transactions per customer
 SELECT 
